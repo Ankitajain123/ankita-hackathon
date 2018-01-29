@@ -1,0 +1,26 @@
+<! — views/partial/head.ejs →
+
+<head> <link rel="stylesheet" href="/style.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<div class = heading>  
+		<div class = logo> <img src = "logo.png"> </div> GURGAON LISTINGS
+		</div>
+	</head>
+
+
+<script>
+        function myFunction(sectionId) {
+            document.getElementById(sectionId).classList.toggle("show");
+        }
+        // Close the dropdown menu if the user clicks outside of it
+        document.onclick = function(event) {
+        if (!event.target.matches('.buy')) {
+            var dropdowns = document.getElementsByClassName("buy-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');}
+                }
+            }
+        }
+    </script>

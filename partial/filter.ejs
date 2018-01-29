@@ -1,0 +1,42 @@
+<! — views/partial/filter.ejs →
+
+<link rel="stylesheet" href="/style.css"> 
+<script>
+function sort1(){
+            }
+        function sort2(){
+           }
+                
+    </script>
+ <div class=part2> 
+        <div class = filter><i class="fa fa-tasks" style="color:gray"> </i> FILTER </div>
+        <div class="dropdown">
+            <button onclick="myFunction('myDropdown')" class="buy">BUY <i class="fa fa-angle-double-down"> </i></button>
+            <div id="myDropdown" class="buy-content">
+                <a href="/">BUY</a>
+                <a href="/rent">RENT</a>
+            </div>
+            <button onclick="myFunction('myDropdown2')" class="buy">BEDROOM <i class="fa fa-angle-double-down"> </i></button>
+            <div id="myDropdown2" class="buy-content">
+                <% if(info[0].listing.listingCategory=="Rental"){%>
+                <a href="/rent/1bhk">1 BHK</a>
+                <a href="/rent/2bhk">2 BHK</a>
+                <a href="/rent/3bhk">3 BHK</a>
+                <a href="/rent/4bhk">+3 BHK</a> <% } %>
+                <% if(info[0].listing.listingCategory!="Rental"){ %>
+                <a href="/1bhk">1 BHK</a>
+                <a href="/2bhk">2 BHK</a>
+                <a href="/3bhk">3 BHK</a>
+                <a href="/4bhk">+3 BHK</a> <% } %>
+            </div>
+        </div>
+        <div class="reset" > <i class="fa fa-refresh" style="color:gray"> </i> RESET </div>
+        <div class= "sort">
+            <button onclick="myFunction('myDropdown3')" class="buy">SORT BY<i class="fa fa-sort"> </i></button>
+            <div id="myDropdown3" class="buy-content">
+                <a id="low"  onclick="sort1()">LOW</a>
+                <a id="high" onclick="sort2()">HIGH</a>
+            </div>
+        </div>
+        
+ </div>

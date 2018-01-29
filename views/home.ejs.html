@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang = "en">
+	<head> <link rel="stylesheet" href="/style.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<div class = heading>  
+		<div class = logo> <img src = "logo.png"> </div> GURGAON LISTINGS
+		</div>
+	</head>
+
+	<script>
+        function myFunction(sectionId) {
+            document.getElementById(sectionId).classList.toggle("show");
+        }
+        // Close the dropdown menu if the user clicks outside of it
+        document.onclick = function(event) {
+        if (!event.target.matches('.buy')) {
+            var dropdowns = document.getElementsByClassName("buy-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');}
+                }
+            }
+        }
+    </script>
+
+    <body>
+        <div class=part2> 
+        <div class = filter><i class="fa fa-tasks" style="color:gray"> </i> FILTER </div>
+        <div class="dropdown">
+            <button onclick="myFunction('myDropdown')" class="buy">BUY <i class="fa fa-angle-double-down"> </i></button>
+            <div id="myDropdown" class="buy-content">
+                <a href="/">BUY</a>
+                <a href="/rent">RENT</a>
+            </div>
+            <button onclick="myFunction('myDropdown2')" class="buy">BEDROOM <i class="fa fa-angle-double-down"> </i></button>
+            <div id="myDropdown2" class="buy-content">
+                <a href="/1bhk">1 BHK</a>
+                <a href="/2bhk">2 BHK</a>
+                <a href="/3bhk">3 BHK</a>
+                <a href="/4bhk">+3 BHK</a>
+            </div>
+        </div>
+        <div class="reset" > <i class="fa fa-refresh" style="color:gray"> </i> RESET </div>
+        <div class= "sort"> <i class="fa fa-sort" style="color:gray"> </i> SORT BY</div>
+        </div>
+
+        <div class=part3 >
+         <div class = card >
+            <% for(var i in info){%>
+                <!--<% var uri='https://www.makaan.com/'+info[i].listing.resaleURL;%> -->
+            <div class= left onclick="location.href = '';">
+                <img src = <%= info[i].listing.mainImageURL%> height="170" width="380"> 
+                <div class=profile>
+                <img src = <%= info[i].listing.companySeller.user.profilePictureURL%> height="50" width= "50">
+                </div> 
+                <div class=broker>
+                     <%= info[i].listing.companySeller.company.name  %> 
+                </div> 
+                <div class=type>
+                    <%= info[i].listing.companySeller.company.type  %>
+                </div> 
+
+
+                <div class=one>
+                <div class= right >
+                    <%= info[i].listing.property.bedrooms %>  BHK APARTMENTS     
+                </div> 
+                <div class = place>
+                    in  <%= info[i].listing.property.project.locality.suburb.label %> 
+                </div> 
+                <div class= properplace> 
+                    <%= info[i].listing.property.project.locality.label %> ,  <%= info[i].listing.property.project.locality.suburb.city.label %>  
+                </div>
+                <div class=rating><%= Number((info[i].listing.companySeller.company.score/2).toFixed(1))%>
+                </div>
+                <div class=count> <%= info[i].listing.sellerCallRatingCount %>  Ratings
+                </div>
+                </div>
+
+                <div class=two>
+                <div class=price >Rs
+                    <%  var temp = info[i].listing.currentListingPrice.price; 
+                        if(info[i].listing.listingCategory=="Rental"){ var temp2='';  }
+                        else{
+                        if((temp/10000000)>1){
+                        temp= Number((temp/10000000).toFixed(2)); var temp2="Cr";}
+                        else {temp= Number((temp/100000).toFixed(2)); var temp2="L";}}%>
+                    <%= temp %> <%= temp2 %>
+                </div>
+                <div class= pricepersq>
+                    <%if(info[i].listing.listingCategory=="Rental"){ var temp="Price"; var temp2 = " ";}
+                    else {var temp=info[i].listing.currentListingPrice.pricePerUnitArea; var temp2="/ sq ft";} %>
+                    <%= temp%> <%=temp2%>
+                </div >
+                <div class= area>
+                    <%= info[i].listing.property.size %>
+                </div >
+                <div class =areasq>Area in sq ft</div>
+                <div class=statusid>
+                   <%if(info[i].listing.listingCategory=="Rental"){var temp2=info[i].listing.furnished; }else {var temp= info[i].listing.companySeller.constructionStatus 
+                   if(temp==0 && temp==1) var temp2= 'Under Construction';
+                   else var temp2= 'Ready to move';}%> 
+                   <%= temp2 %>
+                </div>
+                <div class= status> <%if(info[i].listing.listingCategory=="Rental"){var temp="Status";} else{var temp="Construction Status";}%> 
+                    <%= temp %>
+                </div>
+                </div> 
+
+
+                <div class=three>
+                <div class=age>  <%if(info[i].listing.listingCategory=="Rental"){var temp="Available |";} else{var temp="Years old |";}%>
+                    <%= temp %>
+                </div>
+                <div class=bathrooms> 
+                    <%= info[i].listing.property.bathrooms %> Bathrooms |
+                </div> 
+                <div class=floor>
+                     <%if(info[i].listing.listingCategory=="Rental"){ var temp="Rs "+info[i].listing.securityDeposit + " Deposit";}
+                     else { var temp= info[i].listing.floor + " th of " +info[i].listing.totalFloors +" Floors";} %>
+                    <%= temp %>
+                </div>
+                <div class=description>
+                    <%= info[i].listing.property.bedrooms %>  BHK Property in   <%= info[i].listing.property.project.locality.suburb.city.label %> 
+                    <%= info[i].listing.property.project.locality.label %> : <%var temp=" "; for(var j=0;j<10;j++){ 
+                    temp = temp + info[i].listing.description[j]; %> 
+                    <%}%>  <%= temp%>...<b>MORE</b>
+                </div>
+                </div>
+
+                <div class=four>
+                    <button class=button id="button"> VIEW PHONE </button> 
+                    
+                        <script>var modal = document.getElementById('myModal');
+                                                                var btn = document.getElementById("button");
+                                                                var span = document.getElementsByClassName("close")[0];
+                                                                btn.onclick = function() { modal.style.display = "block";}
+                                                                span.onclick = function() { modal.style.display = "none";}
+                                                                window.onclick = function(event) { if (event.target == modal){
+                                                                    modal.style.display = "none";} } 
+                        </script>
+                        <div id="myModal" class="modal"> 
+                            <div class="modal-content">
+                                <span class="close">&times;</span>
+                               <img class=popimg src = <%= info[i].listing.companySeller.user.profilePictureURL%> height="50" width= "50"><div class="popcontent"> <%= info[i].listing.companySeller.company.name  %> </div> 
+                                <div class=poptype> <%= info[i].listing.companySeller.company.type  %> </div> 
+                                <div class= poprating> <%= Number((info[i].listing.companySeller.company.score/2).toFixed(1))%> </div>
+                                <div class= number> <%var temp=  info[i].listing.companySeller.user.contactNumbers[0].contactNumber; %>
+                                                    <% var a=Math.round(temp/100000000); var b= temp%100;  var d= "*******"; d=a+d+b;
+                                                    %>  <%= d %>
+                                </div>
+                            </div>    
+                        </div>
+                </div> <!-- div of four -->
+                <div class=review>
+
+                </div>
+
+            </div> <!--  div of left-->
+            <% } %>
+            
+         </div>  
+        </div>
+    </body>
+
+</html>s
