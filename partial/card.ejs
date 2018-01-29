@@ -1,13 +1,10 @@
- <script> var uri='https://www.makaan.com/'+<%=info[0].listing.resaleURL%>;
-                alert(uri);
-            </script> 
 
 <link rel="stylesheet" href="/style.css">
 
 <div class = card >
             <% for(var i in info){%>
-
-			<div class= left onclick="location.href = uri;">
+            <script> let uri='https://www.makaan.com/<%= info[i].listing.resaleURL %>'; </script>
+			<div class= "left" onclick="location.href = uri;">
                 <img src = <%= info[i].listing.mainImageURL%> height="170" width="380"> 
                 <div class=profile>
                 <img src = <%= info[i].listing.companySeller.user.profilePictureURL%> height="50" width= "50">
