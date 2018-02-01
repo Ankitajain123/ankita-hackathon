@@ -1,28 +1,42 @@
 
 <link rel="stylesheet" href="/style.css">
-
-<div class = card >
+<div class=part3 >
+         <div class = card >
+            <div class=propertyCount > <% var prop= info.totalCount; var sale ='sale'; 
+            if(info.facetedResponse.items[0].listing.listingCategory=="Rental") sale='Rent'; %> 
+            <%= prop %> properties for <%= sale %> 
+            <% info= info.facetedResponse.items; %> </div>
             <% for(var i in info){%>
-            <script> let uri='https://www.makaan.com/<%= info[i].listing.resaleURL %>'; </script>
-			<div class= "left" onclick="location.href = uri;">
-                <img src = <%= info[i].listing.mainImageURL%> height="170" width="380"> 
+                <script> let uri='https://www.makaan.com/<%= info[i].listing.resaleURL %>'; </script>
+            <div class= left onclick="location.href = uri;">
+                <div class=image>
+                <img src = <%= info[i].listing.mainImageURL%> height="170" width=33% > 
+                </div>
                 <div class=profile>
-                <img src = <%= info[i].listing.companySeller.user.profilePictureURL%> height="50" width= "50">
+                    <% if(info[i].listing.companySeller.user.profilePictureURL){%>
+                <img src = <%= info[i].listing.companySeller.user.profilePictureURL%> height="50" width= "50"> <% } %>
+                <% if(!(info[i].listing.companySeller.user.profilePictureURL)) { %> <img src = <%= info[11].listing.companySeller.user.profilePictureURL%> height="50" width= "50"> <% } %>
                 </div> 
                 <div class=broker>
-                     <%= info[i].listing.companySeller.company.name  %> 
+                     <% var temp= (info[i].listing.companySeller.company.name).toUpperCase(); %>
+                     <% if(temp.length>26) {temp=temp.substring(0, 25); temp=temp+'..';}%>
+                     <%= temp  %> 
                 </div> 
                 <div class=type>
+                    <% if(info[i].listing.listingSellerTransactionStatuses){
+                    var str = info[i].listing.listingSellerTransactionStatuses[0];
+                    str1=str.split('_').join(' ');} else str1=''; %>
+                    <%= str1 %> |
                     <%= info[i].listing.companySeller.company.type  %>
-                </div> 
-
+                </div>
+                
 
                 <div class=one>
                 <div class= right >
-                    <%= info[i].listing.property.bedrooms %>  BHK APARTMENTS     
-                </div> 
-                <div class = place>
-                    in  <%= info[i].listing.property.project.locality.suburb.label %> 
+                    <%= info[i].listing.property.bedrooms %>  BHK APARTMENTS 
+                </div>
+                <div class=place>    
+                in  <%= info[i].listing.property.project.locality.suburb.label %> 
                 </div> 
                 <div class= properplace> 
                     <%= info[i].listing.property.project.locality.label %> ,  <%= info[i].listing.property.project.locality.suburb.city.label %>  
@@ -61,20 +75,24 @@
                 <div class= status> <%if(info[i].listing.listingCategory=="Rental"){var temp="Status";} else{var temp="Construction Status";}%> 
                     <%= temp %>
                 </div>
+                <div class = link> <img src = "link.png" height="10" width="10"> </div>
                 </div> 
 
 
                 <div class=three>
-                <div class=age>  <%if(info[i].listing.listingCategory=="Rental"){var temp="Available |";} else{var temp="Years old |";}%>
+                <div class=age>  <%if(info[i].listing.listingCategory=="Rental"){var temp="Available |";} else{var temp="Possesion |";}%>
                     <%= temp %>
                 </div>
                 <div class=bathrooms> 
                     <%= info[i].listing.property.bathrooms %> Bathrooms |
                 </div> 
                 <div class=floor>
-                     <%if(info[i].listing.listingCategory=="Rental"){ var temp="Rs "+info[i].listing.securityDeposit + " Deposit";}
-                     else { var temp= info[i].listing.floor + " th of " +info[i].listing.totalFloors +" Floors";} %>
-                    <%= temp %>
+                    <%if(info[i].listing.listingCategory=="Rental"){ var sdepo =0;  if(info[i].listing.securityDeposit) 
+                    {sdepo=info[i].listing.securityDeposit;} 
+                    var temp="Rs "+ sdepo + " Deposit";}
+                     else { let first=10; if(info[i].listing.floor) first= info[i].listing.floor; var sec=''; if(info[i].listing.totalFloors)
+                        sec= info[i].listing.totalFloors;  var temp= first + " th of " +sec +" Floors";} %>
+                    <%=temp %>
                 </div>
                 <div class=description>
                     <%= info[i].listing.property.bedrooms %>  BHK Property in   <%= info[i].listing.property.project.locality.suburb.city.label %> 
@@ -116,3 +134,4 @@
             <% } %>
             
          </div>  
+        </div>
